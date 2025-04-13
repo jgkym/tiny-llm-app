@@ -1,0 +1,19 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    # Set the API_URL environment variable so the frontend knows where to reach the API.
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
