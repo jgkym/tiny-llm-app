@@ -1,5 +1,12 @@
+import os
 import streamlit as st
 import requests
+
+# Use environment variable API_URL or default to local host if not set.
+API_URL = os.environ.get("API_URL", "http://api:8000")
+
+# Specify the FastAPI endpoint URL (make sure FastAPI is running)
+endpoint = f"{API_URL}/generate"
 
 # Set the title of the Streamlit app
 st.title("Tiny LLM Demo")
@@ -12,9 +19,6 @@ if st.button("Generate"):
     if not user_input.strip():
         st.error("Please enter a valid prompt!")
     else:
-        # Specify the FastAPI endpoint URL (make sure FastAPI is running)
-        endpoint = "http://127.0.0.1:8000/generate"
-
         # Prepare the payload for the API request
         payload = {"prompt": user_input}
 
